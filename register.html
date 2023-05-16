@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoArt</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="img/art.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top me-2">
+      </a>
+      <a class="navbar-brand geoArtLetter" href="#">GeoArt</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="login.html">Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.html">Registrarse</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Formulario de registro -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card form-card">
+            <div class="card-header text-center">
+              Registro
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3 text-center">
+                  <label for="username" class="form-label">Nombre de usuario</label>
+                  <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3 text-center">
+                  <label for="email" class="form-label text-center">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3 text-center">
+                  <label for="password" class="form-label text-center">Contraseña</label>
+                  <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3 text-center">
+                  <label for="password-confirm" class="form-label text-center">Repetir contraseña</label>
+                  <input type="password" class="form-control" id="password-confirm" required>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-dark ">Registrarse</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Bootstrap JS -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
