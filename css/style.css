@@ -54,3 +54,8 @@ body {
 .btn-secondary:hover{
     background-color: #374153;
 }
+
+
+.cardColor{
+    background-color: #f1f1f1;
+}
