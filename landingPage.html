@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GeoArt</title>
     <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -14,115 +14,141 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="img/art.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top me-2">
-                <a class="navbar-brand geoArtLetter" href="index.html">GeoArt</a>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
 
-            </div>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark pt-3">
+      <div class="container">
+        <div class="text-end"></div>
+        <div class="btn-group mb-2">
+          <button type="button" class="btn btn-secondary">
+            <i class="fa-solid fa-user"></i> Username
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+              >
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <section class="text-dark text-start py-5">
-        <div class="container">
-            <h2 class="text-center">Bienvenido a tus proyectos GeoArt</h2>
-            <div class="row">
-                <div class="col-4 text-start">
-                    <h4 class="mt-2">Proyectos Creados</h4>
-                </div>
-                <div class="col-8 text-end">
-                    <a href="#" class="btn btn-secondary mt-1">Crear Proyecto</a>
-                </div>
-            </div>
-            <hr>
+      <div class="container">
+        <h2 class="text-center">Bienvenido a tus proyectos GeoArt</h2>
+        <div class="row">
+          <div class="col-4 text-start">
+            <h4 class="mt-2">Proyectos Creados</h4>
+          </div>
+          <div class="col-8 text-end">
+            <a href="#" class="btn btn-secondary mt-1">Crear Proyecto</a>
+          </div>
         </div>
+        <hr />
+      </div>
     </section>
     <!-- Projects Section -->
     <section>
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="img/backgroundPage.png" class="card-img-top img-fluid">
-                            <h5 class="card-title text-center mt-2">Project name</h5>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-secondary w-100">Abrir</a>
-                            </div>
-                        </div>
-                    </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/backgroundPage.png"
+                  class="card-img-top img-fluid"
+                />
+                <h5 class="card-title text-center mt-2">Project name</h5>
+                <div class="text-center">
+                  <a href="#" class="btn btn-secondary w-100">Abrir</a>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="img/backgroundPage.png" class="card-img-top img-fluid">
-                            <h5 class="card-title text-center mt-2">Project name</h5>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-secondary w-100">Abrir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="img/backgroundPage.png" class="card-img-top img-fluid">
-                            <h5 class="card-title text-center mt-2">Project name</h5>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-secondary w-100">Abrir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="img/backgroundPage.png" class="card-img-top img-fluid">
-                            <h5 class="card-title text-center mt-2">Project name</h5>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-secondary w-100">Abrir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="img/backgroundPage.png" class="card-img-top img-fluid">
-                            <h5 class="card-title text-center mt-2">Project name</h5>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-secondary w-100">Abrir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="img/backgroundPage.png" class="card-img-top img-fluid">
-                            <h5 class="card-title text-center mt-2">Project name</h5>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-secondary w-100">Abrir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-                
+              </div>
             </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/backgroundPage.png"
+                  class="card-img-top img-fluid"
+                />
+                <h5 class="card-title text-center mt-2">Project name</h5>
+                <div class="text-center">
+                  <a href="#" class="btn btn-secondary w-100">Abrir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/backgroundPage.png"
+                  class="card-img-top img-fluid"
+                />
+                <h5 class="card-title text-center mt-2">Project name</h5>
+                <div class="text-center">
+                  <a href="#" class="btn btn-secondary w-100">Abrir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/backgroundPage.png"
+                  class="card-img-top img-fluid"
+                />
+                <h5 class="card-title text-center mt-2">Project name</h5>
+                <div class="text-center">
+                  <a href="#" class="btn btn-secondary w-100">Abrir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/backgroundPage.png"
+                  class="card-img-top img-fluid"
+                />
+                <h5 class="card-title text-center mt-2">Project name</h5>
+                <div class="text-center">
+                  <a href="#" class="btn btn-secondary w-100">Abrir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img
+                  src="img/backgroundPage.png"
+                  class="card-img-top img-fluid"
+                />
+                <h5 class="card-title text-center mt-2">Project name</h5>
+                <div class="text-center">
+                  <a href="#" class="btn btn-secondary w-100">Abrir</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
-</body>
-
+  </body>
 </html>

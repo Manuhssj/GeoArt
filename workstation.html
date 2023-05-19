@@ -7,144 +7,203 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- VUE -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark pt-3">
       <div class="container">
-        <a class="navbar-brand" href="index.html">
-          <a class="navbar-brand geoArtLetter" href="index.html">GeoArt</a>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav"></div>
+        <div class="text-end"></div>
+        <div class="btn-group mb-2">
+          <button type="button" class="btn btn-secondary">
+            <i class="fa-solid fa-user"></i> Username
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#"
+                ><i class="fa-solid fa-right-from-bracket"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
     <!-- BARRA SUPERIOR FIGURAS -->
-    
+
     <!-- SIDE BAR -->
     <header class="navbar navbar-expand-lg mt-5 ms-4 me-4 bgTopbar">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <button class="btn btn-primary btn-lg ms-1 " href="#"><i class="fa-sharp fa-solid fa-arrow-pointer"></i></button>
+              <button class="btn btn-primary btn-lg ms-1" href="#">
+                <i class="fa-sharp fa-solid fa-arrow-pointer"></i>
+              </button>
             </li>
             <li class="nav-item">
-              <button class="btn btn-primary btn-lg ms-1" href="#"><i class="fa-regular fa-square"></i></button>
+              <button class="btn btn-primary btn-lg ms-1" href="#">
+                <i class="fa-regular fa-square"></i>
+              </button>
             </li>
             <li class="nav-item">
-              <button class="btn btn-primary btn-lg ms-1" href="#"><i class="fa-solid fa-minus"></i></button>
+              <button class="btn btn-primary btn-lg ms-1" href="#">
+                <i class="fa-solid fa-minus"></i>
+              </button>
             </li>
             <li class="nav-item">
-              <button class="btn btn-primary btn-lg ms-1" href="#"><i class="fa-regular fa-circle"></i></button>
+              <button class="btn btn-primary btn-lg ms-1" href="#">
+                <i class="fa-regular fa-circle"></i>
+              </button>
             </li>
             <li class="nav-item">
-              <button class="btn btn-primary btn-lg ms-1" href="#"><i class="fa-solid fa-t"></i></button>
+              <button class="btn btn-primary btn-lg ms-1" href="#">
+                <i class="fa-solid fa-t"></i>
+              </button>
             </li>
           </ul>
         </div>
-  
+
         <div class="d-flex">
           <button class="btn btn-dark btn-lg me-2">Guardar</button>
         </div>
       </div>
     </header>
-  
-    
+
     <div class="d-flex flex-row justify-content-center m-5">
       <div class="d-flex flex-column ms-5 col-2">
-          <div class="bg-white mb-3">
-            <div class="container-fluid">
-              <h3 class="mt-2">Propiedades</h3>
-              <hr>
-              <div class="d-flex justify-content-center mb-3">
-                  <div class="col-auto me-2">
-                    <i class="fa-sharp fa-solid fa-x"></i>
-                    <input type="number" name="x" id="x" style="width: 100px">
-                  </div>
-                  <div class="col-auto">
-                    <i class="fa-sharp fa-solid fa-y"></i>
-                    <input type="number" name="y" id="y" style="width: 100px">
-                  </div>     
+        <div class="bg-white mb-3">
+          <div class="container-fluid">
+            <h3 class="mt-2">Propiedades</h3>
+            <hr />
+            <div class="d-flex justify-content-center mb-3">
+              <div class="col-auto me-2">
+                <i class="fa-sharp fa-solid fa-x"></i>
+                <input type="number" name="x" id="x" style="width: 100px" />
               </div>
-              <div class="d-flex justify-content-center mb-3">
-                <div class="col-auto me-2">
-                  <i class="fa-sharp fa-solid fa-w"></i>
-                  <input type="number" name="w" id="w" style="width: 100px">
-                </div>
-                <div class="col-auto">
-                  <i class="fa-sharp fa-solid fa-h"></i>
-                  <input type="number" name="h" id="h" style="width: 100px">
-                </div>     
+              <div class="col-auto">
+                <i class="fa-sharp fa-solid fa-y"></i>
+                <input type="number" name="y" id="y" style="width: 100px" />
+              </div>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+              <div class="col-auto me-2">
+                <i class="fa-sharp fa-solid fa-w"></i>
+                <input type="number" name="w" id="w" style="width: 100px" />
+              </div>
+              <div class="col-auto">
+                <i class="fa-sharp fa-solid fa-h"></i>
+                <input type="number" name="h" id="h" style="width: 100px" />
+              </div>
             </div>
             <div class="d-flex justify-content-center mb-3">
               <div class="col-auto me-2">
                 <i class="fa-solid fa-palette"></i>
-                <input type="number" name="olor" id="color" style="width: 100px">
+                <input
+                  type="number"
+                  name="olor"
+                  id="color"
+                  style="width: 100px"
+                />
               </div>
               <div class="col-auto">
                 <i class="fa-regular fa-circle"></i>
-                <input type="number" name="radious" id="radious" style="width: 100px">
-              </div>     
-          </div>
-          <div class="d-flex justify-content-center mb-3">
-            <div class="col-auto me-2">
-              <i class="fa-solid fa-palette" style="color: #acadaf;"></i>
-              <input type="number" name="opacity-color" id="opacity-color" style="width: 100px">
+                <input
+                  type="number"
+                  name="radious"
+                  id="radious"
+                  style="width: 100px"
+                />
+              </div>
             </div>
-            <div class="col-auto">
-              <i class="fa-solid fa-text-height"></i>
-              <input type="number" name="text-size" id="text-size" style="width: 100px">
-            </div>     
+            <div class="d-flex justify-content-center mb-3">
+              <div class="col-auto me-2">
+                <i class="fa-solid fa-palette" style="color: #acadaf"></i>
+                <input
+                  type="number"
+                  name="opacity-color"
+                  id="opacity-color"
+                  style="width: 100px"
+                />
+              </div>
+              <div class="col-auto">
+                <i class="fa-solid fa-text-height"></i>
+                <input
+                  type="number"
+                  name="text-size"
+                  id="text-size"
+                  style="width: 100px"
+                />
+              </div>
+            </div>
+            <h3 class="mt-2">Stroke</h3>
+            <hr />
+            <div class="d-flex justify-content-center mb-3">
+              <div class="col-auto me-2">
+                <i class="fa-regular fa-square"></i>
+                <input
+                  type="number"
+                  name="stroke"
+                  id="stroke"
+                  style="width: 100px"
+                />
+              </div>
+              <div class="col-auto">
+                <i class="fa-solid fa-palette" style="color: #acadaf"></i>
+                <input
+                  type="number"
+                  name="opacity-stroke"
+                  id="opacity-stroke"
+                  style="width: 100px"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-          <h3 class="mt-2">Stroke</h3>
-          <hr>
-          <div class="d-flex justify-content-center mb-3">
-            <div class="col-auto me-2">
-              <i class="fa-regular fa-square"></i>
-              <input type="number" name="stroke" id="stroke" style="width: 100px">
+        <div class="sidebar bg-white text-dark">
+          <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between">
+              <h3 class="mt-2 float-start">Capas</h3>
+              <div class="me-3">
+                <i class="fa-sharp fa-solid fa-arrow-up"></i>
+                <i class="fa-solid fa-arrow-down"></i>
+              </div>
             </div>
-            <div class="col-auto">
-              <i class="fa-solid fa-palette" style="color: #acadaf;"></i>
-              <input type="number" name="opacity-stroke" id="opacity-stroke" style="width: 100px">
-            </div>     
+            <hr />
+          </div>
+          <div class="layers">
+            <div class="layer">
+              <a class="name text-dark text-decoration-none">Capa 1</a>
+            </div>
+            <div class="layer">
+              <a class="name text-dark text-decoration-none">Capa 2</a>
+            </div>
+            <div class="layer">
+              <a class="name text-dark text-decoration-none">Capa 3</a>
+            </div>
+          </div>
         </div>
-        
-            </div>
-          </div>
-          <div class="sidebar bg-white text-dark">
-            <div class="container-fluid">
-              <div class="d-flex align-items-center justify-content-between">
-                <h3 class="mt-2 float-start">Capas</h3>
-                <div class="me-3">
-                  <i class="fa-sharp fa-solid fa-arrow-up"></i>
-                  <i class="fa-solid fa-arrow-down"></i>
-                </div>
-              </div>
-              <hr>
-            </div>
-            <div class="layers">
-              <div class="layer">
-                <a class="name text-dark text-decoration-none">Capa 1</a>
-              </div>
-              <div class="layer">
-                <a class="name text-dark text-decoration-none">Capa 2</a>
-              </div>
-              <div class="layer">
-                <a class="name text-dark text-decoration-none">Capa 3</a>
-              </div>
-            </div>
-          </div>
       </div>
-      <div class="bg-white ms-5 me-5 col-10">
-      </div>
+      <div class="bg-white ms-5 me-5 col-10"></div>
     </div>
 
-  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

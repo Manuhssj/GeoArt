@@ -99,3 +99,8 @@ body {
     border-radius: 10px;
     color: #ffff;
 }
+
+
+.dropdown-item:hover{
+    background-color: #dc3545;
+}
