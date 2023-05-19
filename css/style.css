@@ -1,6 +1,7 @@
 :root{
     --azulCielo: #acd7e4;
     --azulOscuro: #4b576f;
+    --barFiguras: #d2d4db;
 }
 
 
@@ -58,4 +59,43 @@ body {
 
 .cardColor{
     background-color: #f1f1f1;
+}
+
+.barSup {
+    background-color: var(--barFiguras);
+    height: 55px;
+}
+
+
+.sidebar {
+    /* margin-left: 30px;
+    margin-top: 100px; */
+    color: #fff;
+}
+
+.sidebar .layers {
+    padding: 1rem;
+}
+
+.sidebar .layer {
+    display: grid;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.sidebar .layer:hover {
+    background-color: var(--azulOscuro);
+    border-radius: 10px;
+    color: #ffff;
+}
+
+.bgTopbar{
+    background-color: var(--barFiguras);
+}
+
+.navitem .navlink:hover{
+    background-color: var(--azulOscuro);
+    border-radius: 10px;
+    color: #ffff;
 }
