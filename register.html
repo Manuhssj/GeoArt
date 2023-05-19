@@ -8,7 +8,10 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 
-
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- VUE -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -80,10 +83,38 @@
   createApp({
     data() {
       return {
-        message: 'Hello Vue!'
+        email: '',
+        password: ''
       }
     },
     methods: {
+      login(e){
+        e.preventDefault();
+        const axios = require('axios');
+        let data = JSON.stringify({
+          "email": "mdiaz_19@alu.uabcs.com",
+          "password": "123456"
+        });
+
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: 'localhost:3001/api/auth/login',
+          headers: { 
+            // 'Content-Type': 'application/json'
+          },
+          data : data
+        };
+
+        axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+          alert('Datos incorrectos')
+        });
+      }
 
     },
     mounted(){
