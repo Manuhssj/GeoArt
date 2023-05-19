@@ -13,9 +13,9 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-  
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+    
       <a class="navbar-brand ms-5 my-3" href="index.html">
         <img
           src="img/art.png"
@@ -27,7 +27,7 @@
         <a class="navbar-brand geoArtLetter" href="index.html">GeoArt</a>
       </a>
     </nav>
-
+  
     <main>
       <!-- Formulario de registro -->
       <div class="container mt-5">
@@ -82,8 +82,28 @@
         </div>
       </div>
     </main>
+  </div>
+  <!-- Navbar -->
 
     <!-- Bootstrap JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    },
+    methods: {
+
+    },
+    mounted(){
+
+    }
+  }).mount('#app')
+</script>
