@@ -26,7 +26,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fa-solid fa-user"></i> Username
+              <i class="fa-solid fa-user"></i> {{name}}
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
@@ -48,7 +48,7 @@
               <h4 class="mt-2">Proyectos Creados</h4>
             </div>
             <div class="col-8 text-end">
-              <a href="#" class="btn btn-secondary mt-1">Crear Proyecto</a>
+              <a href="workstation.html" class="btn btn-secondary mt-1">Crear Proyecto</a>
             </div>
           </div>
           <hr />
@@ -169,7 +169,7 @@
   createApp({
     data() {
       return {
-        message: "Hello Vue!",
+        name: JSON.parse( localStorage.getItem('user') ),
       };
     },
     methods: {

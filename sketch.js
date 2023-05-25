@@ -6,11 +6,22 @@ function setup() {
   background(255);
 }
 
-function draw() {
-  if (mouseIsPressed) {
-    fill(0);
-  } else {
-    fill(255);
-  }
-  ellipse(mouseX, mouseY, 80, 80);
+function drawRectangle() {
+  fill(255, 0, 0);
+  rect(50, 50, 100, 100);
+}
+function drawEllipse() {
+  fill(0, 255, 0);
+  ellipse(200, 200, 100, 100);
+}
+
+function drawLine() {
+  stroke(0, 0, 255);
+  line(300, 300, 350, 350);
+}
+
+function drawText() {
+  fill(0);
+  textSize(24);
+  text("Hola, soy un texto", 100, 100);
 }
