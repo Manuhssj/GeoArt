@@ -26,7 +26,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fa-solid fa-user"></i> Username
+              <i class="fa-solid fa-user"></i> {{name}}
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
@@ -169,7 +169,7 @@
   createApp({
     data() {
       return {
-        message: "Hello Vue!",
+        name: JSON.parse( localStorage.getItem('user') ),
       };
     },
     methods: {
