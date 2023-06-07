@@ -96,56 +96,56 @@
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-x me-2"></i>
-                                <input type="number" name="x" id="x" min="0" />
+                                <input type="number" name="x" id="x" min="0" v-model="figure.x" :readonly="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT Y -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-y me-2"></i>
-                                <input type="number" name="x" id="y" min="0" />
+                                <input type="number" name="x" id="y" min="0" v-model="figure.y" />
                             </div>
                         </div>
                         <!-- INPUT W -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-w me-2"></i>
-                                <input type="number" name="x" id="w" min="0" />
+                                <input type="number" name="x" id="w" min="0" v-model="figure.w" />
                             </div>
                         </div>
                         <!-- INPUT H -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-h me-2"></i>
-                                <input type="number" name="x" id="h" min="0" />
+                                <input type="number" name="x" id="h" min="0" v-model="figure.h" />
                             </div>
                         </div>
                         <!-- INPUT FILL -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette"></i>
-                                <input type="color" name="fill_color" id="fill_color" />
+                                <input type="color" name="fill_color" id="fill_color" v-model="figure.fill_color" />
                             </div>
                         </div>
                         <!-- INPUT CORNER -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-regular fa-circle"></i>
-                                <input type="number" name="corner" id="corner" min="0" />
+                                <input type="number" name="corner" id="corner" min="0" v-model="figure.corner" />
                             </div>
                         </div>
                         <!-- INPUT OPACITY FILL -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette me-2" style="color: #acadaf"></i>
-                                <input type="number" name="fill_opacity" id="fill_opacity" min="0" max="255" />
+                                <input type="number" name="fill_opacity" id="fill_opacity" min="0" max="100" v-model="figure.fill_opacity" />
                             </div>
                         </div>
                         <!-- INPUT TEXT SIZE -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-text-height"></i>
-                                <input type="number" name="text_size" id="text_size" min="0" />
+                                <input type="number" name="text_size" id="text_size" min="0" v-model="figure.font_size" />
                             </div>
                         </div>
                     </div>
@@ -158,21 +158,21 @@
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette"></i>
-                                <input type="color" name="stroke_color" id="stroke_color" />
+                                <input type="color" name="stroke_color" id="stroke_color" v-model="figure.stroke_color" />
                             </div>
                         </div>
                         <!-- INPUT STROKE THICKNESS -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-minus"></i>
-                                <input type="number" name="corner" id="corner" min="0" />
+                                <input type="number" name="corner" id="corner" min="0" v-model="figure.stroke" />
                             </div>
                         </div>
                         <!-- INPUT OPACITY STROKE -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette me-2" style="color: #acadaf"></i>
-                                <input type="number" name="stroke_opacity" id="stroke_opacity" min="0" max="255" />
+                                <input type="number" name="stroke_opacity" id="stroke_opacity" min="0" max="100" v-model="figure.stroke_opacitys" />
                             </div>
                         </div>
                     </div>
@@ -223,9 +223,9 @@
             data() {
                 return {
                     figures: [],
-                    figure: null,
+                    figure: new Figura('rect', 0, 0, 0, 0),
                     figureSelected: false,
-                    figureSelectedIndex: null,
+                    figureSelectedIndex: -1,
                     figureType: '',
                     inicioX: null,
                     inicioY: null,
@@ -286,6 +286,32 @@
                         for (let i = this.figures.length - 1; i >= 0; i--) {
                             this.figures[i].drawFigura(p5);
                             if(!this.figures[i].hidden) {
+                                //HITBOX (FIGURE SELECTED FRAME)
+                                if (this.figureSelected !== false && this.figures[i].selected===true) {
+                                    p5.noFill();
+                                    p5.stroke(255, 0, 0);
+                                    p5.strokeWeight(2);
+                                    let minX = Math.min(this.figure.x, this.figure.x + this.figure.w);
+                                    let maxX = Math.max(this.figure.x, this.figure.x + this.figure.w);
+                                    let minY = Math.min(this.figure.y, this.figure.y + this.figure.h);
+                                    let maxY = Math.max(this.figure.y, this.figure.y + this.figure.h);
+                                    switch (this.figure.name) {
+                                        case 'text':
+                                            p5.rect(minX, minY - (maxY-minY) + 5, maxX-minX, maxY - minY);
+                                            break;
+                                        case 'line':
+                                            let rectX = Math.min(this.figure.x1, this.figure.x2);
+                                            let rectY = Math.min(this.figure.y1, this.figure.y2);
+                                            let rectWidth = Math.abs(this.figure.x2 - this.figure.x1);
+                                            let rectHeight = Math.abs(this.figure.y2 - this.figure.y1); 
+                                            p5.rect(rectX, rectY, rectWidth, rectHeight);
+                                            break;
+                                        default:
+                                            p5.rect(minX-10, minY-10, maxX - minX + 20, maxY - minY + 20);
+
+                                            break;
+                                    }                          
+                                }
                                 this.figures[i].drawFigura(p5);
                             }
                         }
@@ -307,45 +333,17 @@
                                     break;
                             }
                         }
-
-                        //HITBOX (FIGURE SELECTED FRAME)
-                        if (this.figureSelected !== false) {
-                          p5.noFill();
-                          p5.stroke(255, 0, 0);
-                          p5.strokeWeight(2);
-                          let minX = Math.min(this.figure.x, this.figure.x + this.figure.w);
-                          let maxX = Math.max(this.figure.x, this.figure.x + this.figure.w);
-                          let minY = Math.min(this.figure.y, this.figure.y + this.figure.h);
-                          let maxY = Math.max(this.figure.y, this.figure.y + this.figure.h);
-
-                          switch (this.figure.name) {
-                              case 'text':
-                                  p5.rect(minX, minY - (maxY-minY) + 5, maxX-minX, maxY - minY);
-                                  break;
-                              case 'line':
-                                  let rectX = Math.min(this.figure.x1, this.figure.x2);
-                                  let rectY = Math.min(this.figure.y1, this.figure.y2);
-                                  let rectWidth = Math.abs(this.figure.x2 - this.figure.x1);
-                                  let rectHeight = Math.abs(this.figure.y2 - this.figure.y1); 
-                                  p5.rect(rectX, rectY, rectWidth, rectHeight);
-                                  break;
-                              default:
-                                  p5.rect(minX-10, minY-10, maxX - minX + 20, maxY - minY + 20);
-                                  break;
-                          }                          
-                      }
-
                     };
 
                     p5.mouseClicked = () => {
-                        if (p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
-                            if(this.figureSelected===false) {
+                      if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
+                            //SELECT FIGURE
+                            if(this.figureType==='' && this.figureSelected===false) {
                                 this.figureSelectedIndex = this.figures.findIndex((figure) => {
                                     let minX = Math.min(figure.x, figure.x + figure.w);
                                     let maxX = Math.max(figure.x, figure.x + figure.w);
                                     let minY = Math.min(figure.y, figure.y + figure.h);
                                     let maxY = Math.max(figure.y, figure.y + figure.h);
-
                                     if(figure.name === 'line') {
                                         let rectX = Math.min(figure.x1, figure.x2);
                                         let rectY = Math.min(figure.y1, figure.y2);
@@ -353,21 +351,23 @@
                                         let rectHeight = Math.abs(figure.y2 - figure.y1); 
                                         return p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight;
                                     }
+                                    if(figure.name === 'text') {
+                                        return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) + 5 && p5.mouseY <= maxY - (maxY-minY) + 5;
+                                    }
                                     return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY;
                                 });
-                                console.log(this.figureSelectedIndex);
                                 if(this.figureSelectedIndex>-1){
+                                    this.figures[this.figureSelectedIndex].selected = true;
                                     this.figure = this.figures[this.figureSelectedIndex];
-                                    console.log(this.figure);
                                     this.figureSelected = true;
                                 }
                             }
-                            
                         }
                     }
 
                     p5.mousePressed = () => {
                         if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
+                           //DIBUJAR FIGURA
                             if(this.figureType!=='') {
                                 if(this.figureType==='text') {
                                     this.addNewFig(this.figureType, p5.mouseX, p5.mouseY, 0, 0);
@@ -392,6 +392,93 @@
                             }
                         }
                     }
+
+
+                    p5.mouseReleased = () => {
+                        if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
+                            //DESELECT FIGURE
+                            if(this.figureType==='' && this.figureSelected===true) {
+                                if(this.figureSelectedIndex!==-1) {
+                                    console.log("DIFERENTE DE -1")
+                                    
+                                    if(this.figures[this.figureSelectedIndex].name==='line') {
+                                        let rectX = Math.min(this.figures[this.figureSelectedIndex].x1, this.figures[this.figureSelectedIndex].x2);
+                                        let rectY = Math.min(this.figures[this.figureSelectedIndex].y1, this.figures[this.figureSelectedIndex].y2);
+                                        let rectWidth = Math.abs(this.figures[this.figureSelectedIndex].x2 - this.figures[this.figureSelectedIndex].x1);
+                                        let rectHeight = Math.abs(this.figures[this.figureSelectedIndex].y2 - this.figures[this.figureSelectedIndex].y1); 
+                                        if(!(p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight)) {
+                                            this.figures[this.figureSelectedIndex].selected = false;
+                                            this.figureSelected = false;
+                                            //this.figure = new Figura('rect', 0, 0, 0, 0);
+                                            this.figureSelectedIndex = -1;
+                                        }
+                                    } else {
+                                        let minX = Math.min(this.figures[this.figureSelectedIndex].x, this.figures[this.figureSelectedIndex].x + this.figures[this.figureSelectedIndex].w);
+                                        let maxX = Math.max(this.figures[this.figureSelectedIndex].x, this.figures[this.figureSelectedIndex].x + this.figures[this.figureSelectedIndex].w);
+                                        let minY = Math.min(this.figures[this.figureSelectedIndex].y, this.figures[this.figureSelectedIndex].y + this.figures[this.figureSelectedIndex].h);
+                                        let maxY = Math.max(this.figures[this.figureSelectedIndex].y, this.figures[this.figureSelectedIndex].y + this.figures[this.figureSelectedIndex].h);
+                                        if(this.figures[this.figureSelectedIndex].name==='text'&&!(p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) - 5 && p5.mouseY <= maxY - (maxY-minY) + 5)) {
+                                            this.figures[this.figureSelectedIndex].selected = false;
+                                            this.figureSelected = false;
+                                            //this.figure = new Figura('rect', 0, 0, 0, 0);
+                                            this.figureSelectedIndex = -1;
+                                        } else if(!(p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY)) {
+                                            this.figures[this.figureSelectedIndex].selected = false;
+                                            this.figureSelected = false;
+                                            //this.figure = new Figura('rect', 0, 0, 0, 0);
+                                            this.figureSelectedIndex = -1;
+                                        }
+
+                                    }
+
+                                }
+
+
+                                /* this.figureSelectedIndex = this.figures.findIndex((figure) => {
+                                    let minX = Math.min(figure.x, figure.x + figure.w);
+                                    let maxX = Math.max(figure.x, figure.x + figure.w);
+                                    let minY = Math.min(figure.y, figure.y + figure.h);
+                                    let maxY = Math.max(figure.y, figure.y + figure.h);
+                                    
+                                    if(figure.name === 'line') {
+                                        let rectX = Math.min(figure.x1, figure.x2);
+                                        let rectY = Math.min(figure.y1, figure.y2);
+                                        let rectWidth = Math.abs(figure.x2 - figure.x1);
+                                        let rectHeight = Math.abs(figure.y2 - figure.y1); 
+                                        return p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight;
+                                    }
+                                    return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY;
+                                }); */
+                                //console.log(this.figureSelectedIndex);
+                                /* if(this.figureSelectedIndex>-1){
+                                    this.figures[this.figureSelectedIndex].selected = true;
+                                    this.figure = this.figures[this.figureSelectedIndex];
+                                    //console.log(this.figure);
+                                    this.figureSelected = true;
+                                } */
+                            }
+                        }
+                        
+
+
+                        /* if(this.figureSelected!==true&&this.figureSelectedIndex!==undefined&&this.figureSelectedIndex!==null&&this.figureSelectedIndex!==-1) {
+                            if(this.figures[this.figureSelectedIndex].name==='line') {
+                                let rectX = Math.min(this.figures[this.figureSelectedIndex].x1, this.figures[this.figureSelectedIndex].x2);
+                                let rectY = Math.min(this.figures[this.figureSelectedIndex].y1, this.figures[this.figureSelectedIndex].y2);
+                                let rectWidth = Math.abs(this.figures[this.figureSelectedIndex].x2 - this.figures[this.figureSelectedIndex].x1);
+                                let rectHeight = Math.abs(this.figures[this.figureSelectedIndex].y2 - this.figures[this.figureSelectedIndex].y1); 
+                                if(!(p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight)) {
+                                    this.figures[this.figureSelectedIndex].selected = false;
+                                    this.figure = new Figura('rect', 0, 0, 0, 0);
+                                    this.figureSelected = false;
+                                    this.figureSelectedIndex = -1;
+                                    this.figureType = '';
+                                }
+                            }
+                        } */
+                    }
+                    
+                    
                     
                 }, "canva");
             },
