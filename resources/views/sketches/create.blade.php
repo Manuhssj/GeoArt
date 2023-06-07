@@ -256,8 +256,6 @@
                         p5.createCanvas(containerCanvas.offsetWidth, containerCanvas.offsetHeight);
                     };
                     p5.draw = () => {
-                        /* p.fill(123);
-                        p.rect(50, 550, 200, 100); */
                         p5.background('#FFFFFF');
                         for (let i = this.figures.length - 1; i >= 0; i--) {
                             this.figures[i].drawFigura(p5);

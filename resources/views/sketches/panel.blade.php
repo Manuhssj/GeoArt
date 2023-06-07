@@ -49,11 +49,11 @@
             <div class="container">
                 <div class="row">
 
-                    <div v-if="sketches.length>0"  v-for="sketches as sketch" class="col-md-3 mb-4">
+                    <div v-if="sketches.length>0"  v-for="sketch in sketches" class="col-md-3 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <img src="{{asset('img/backgroundPage.png')}}" class="card-img-top img-fluid" />
-                                <h5 class="card-title text-center mt-2">@{{sketch.name}} </h5>
+                                <img :src="sketch.img_preview" class="card-img-top img-fluid" />
+                                <h5 class="card-title text-center mt-2">@{{sketch.name}}</h5>
                                 <div class="text-center">
                                     <a :href="'/sketch/'+sketch.id" class="btn btn-secondary w-100">Abrir</a>
                                 </div>
