@@ -33,15 +33,18 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required',
             'email' => 'required|unique:users|string|max:50',
-            'password' => ['required', Password::min(8)],
+            'password' => ['required', Password::min(8), 'confirmed'],
+            'password_confirmation' => ['required', Password::min(8)],
         ],
         [   
             'username.required' => 'Username requerido.',
             'email.required' => 'Correo requerido.',
-            'email.unique' => 'Username ya ocupado.',
+            'email.unique' => 'Correo electrónico ya ocupado.',
             'email.max' => 'Excedes el límite de caracteres.',
             'password.required' => 'Contraseña requerida.',
             'password.min' => 'Minimo 8 caracteres.',
+            'password_confirmation.required' => 'Contraseña requerida.',
+            'password_confirmation.min' => 'Minimo 8 caracteres.',
         ]);
         $user = User::create(['username' => $request->username, 'email' => $request->email, 'password' => bcrypt($request->password),]);
         if($user){

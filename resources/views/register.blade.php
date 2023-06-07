@@ -20,7 +20,7 @@
                 </nav>
 
                 <main class="container d-flex justify-content-center align-items-center h-100">
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="card cardColor form-card">
                             <div class="mt-4 text-center">
                                 <h2 class="">Registro</h2>
@@ -62,6 +62,16 @@
                                         <label for="contraseña" class="form-label ">Contraseña</label>
                                         <input type="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" minlength="8" required>
                                         @error('password')
+                                            <div>
+                                                {{$message}}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <!-- CONFIRM PASSWORD -->
+                                    <div class="mb-3 text-start ms-5 me-5">
+                                        <label for="password_confirmation" class="form-label ">Confirmar contraseña</label>
+                                        <input type="password" name="password_confirmation" class="form-control" placeholder="Ingresa tu contraseña" minlength="8" required>
+                                        @error('password_confirmation')
                                             <div>
                                                 {{$message}}
                                             </div>

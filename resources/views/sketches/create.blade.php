@@ -31,14 +31,14 @@
         </nav>
 
         <!-- BARRA SUPERIOR FIGURAS -->
-
+        
         <div class="d-flex container-fluid px-4 mt-3 ">
             <form action="{{ route('sketch.store') }}" method="POST" enctype="multipart/form-data" class="d-flex justify-content-between align-items-center w-100 bgTopbar" id="sketchF"  @keydown.enter="preventFormSubmit">
                 @csrf
                 <input type="text" id="user_id" name="user_id" value="{{auth()->id()}}" hidden>
                 <input type="text" id="figuras" name="json" hidden>
                 <input type="text" id="img_preview" name="img_preview" hidden>
-
+                
                 <!-- FIGURES -->
                 <ul class="navbar-nav d-flex flex-row">
                     <!-- BTN MOUSE -->
@@ -87,7 +87,7 @@
         <div class="mt-3 d-flex px-4">
             <div class="workstation-sidebar d-flex flex-column me-4">
                 <div class="bg-white px-3 mb-3">
-
+                    
                     <!-- PROPERTIES -->
                     <h3 class="mt-2">Propiedades</h3>
                     <hr class="my-3">
@@ -96,21 +96,21 @@
                         <div v-if="figure.name!=='line'" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-x me-2"></i>
-                                <input type="number" name="x" id="x" min="0" v-model="figure.x" :readonly="figure.selected ? false : true" />
+                                <input type="number" name="x" id="x" min="0" v-model="figure.x" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT Y -->
                         <div v-if="figure.name!=='line'" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-y me-2"></i>
-                                <input type="number" name="x" id="y" min="0" v-model="figure.y" />
+                                <input type="number" name="y" id="y" min="0" v-model="figure.y" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT W -->
                         <div v-if="(figure.name!=='text'&&figure.name!=='line')" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-w me-2"></i>
-                                <input type="number" name="w" id="w" min="0" v-model="figure.w" />
+                                <input type="number" name="w" id="w" min="0" v-model="figure.w" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT X1 -->
@@ -145,14 +145,14 @@
                         <div v-if="(figure.name!=='text'&&figure.name!=='line')" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-h me-2"></i>
-                                <input type="number" name="h" id="h" min="0" v-model="figure.h" />
+                                <input type="number" name="h" id="h" min="0" v-model="figure.h" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT FILL -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette"></i>
-                                <input type="color" name="fill_color" id="fill_color" v-model="figure.fill_color" />
+                                <input type="color" name="fill_color" id="fill_color" v-model="figure.fill_color" :disabled="(figure.selected==true&&figure.name!=='line') ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT CORNER -->
@@ -166,7 +166,7 @@
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette me-2" style="color: #acadaf"></i>
-                                <input type="number" name="fill_opacity" id="fill_opacity" min="0" max="255" v-model="figure.fill_opacity" />
+                                <input type="number" name="fill_opacity" id="fill_opacity" min="0" max="255" v-model="figure.fill_opacity" :disabled="(figure.selected==true&&figure.name!=='line') ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT TEXT SIZE -->
@@ -193,26 +193,26 @@
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette"></i>
-                                <input type="color" name="stroke_color" id="stroke_color" v-model="figure.stroke_color" />
+                                <input type="color" name="stroke_color" id="stroke_color" v-model="figure.stroke_color" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT STROKE THICKNESS -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-minus"></i>
-                                <input type="number" name="corner" id="corner" min="0" v-model="figure.stroke" />
+                                <input type="number" name="corner" id="corner" min="0" v-model="figure.stroke" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT OPACITY STROKE -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette me-2" style="color: #acadaf"></i>
-                                <input type="number" name="stroke_opacity" id="stroke_opacity" min="0" max="255" v-model="figure.stroke_opacity" />
+                                <input type="number" name="stroke_opacity" id="stroke_opacity" min="0" max="255" v-model="figure.stroke_opacity" :disabled="figure.selected ? false : true" />
                             </div>
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="sidebar bg-white text-dark">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between">
@@ -222,7 +222,7 @@
                     </div>
                     <div class="layers px-2">
                         <!-- CAPA -->
-                        <div v-for="(figure, index) in figures" :class="figure.selected ? 'navbar text-white' : ''" @click="select(index)" class="layer text-dark d-flex justify-content-between rounded-1">
+                        <div v-if="figures.length>0" v-for="(figure, index) in figures" :class="figure.selected ? 'navbar text-white' : ''" @click="select(index)" class="layer text-dark d-flex justify-content-between rounded-1">
                             <h5 class="m-0">@{{figure.name}}</h5>
                             <div class="d-flex nowrap">
                                 <button type="button" @click="backLayer(index)" :key="'backLayer'+index">
@@ -238,6 +238,9 @@
                                     <i class="fa-sharp fa-solid fa-trash"></i>
                                 </button>
                             </div>
+                        </div>
+                        <div v-else>
+                            <h2 class="text-center p-3">No se han añadido capas.</h2>
                         </div>
                     </div>
                 </div>
@@ -336,16 +339,16 @@
                         var containerCanvas = document.getElementById("canva");
                         p5.createCanvas(containerCanvas.offsetWidth, containerCanvas.offsetHeight);
                     };
+
                     p5.draw = () => {
                         p5.background('#FFFFFF');
 
                         p5.strokeWeight(2);
                         p5.fill(0,0,0,0);
                         for (let i = this.figures.length - 1; i >= 0; i--) {
-                            this.figures[i].drawFigura(p5);
                             if(!this.figures[i].hidden) {
                                 //HITBOX (FIGURE SELECTED FRAME)
-                                if (this.figureSelected === true && this.figures[i].selected===true) 
+                                if (this.figureSelected === true && this.figures[i].selected===true) {
                                     p5.noFill();
                                     p5.stroke(255, 0, 0);
                                     p5.strokeWeight(2);
@@ -353,6 +356,7 @@
                                     let maxX = Math.max(this.figure.x, this.figure.x + this.figure.w);
                                     let minY = Math.min(this.figure.y, this.figure.y + this.figure.h);
                                     let maxY = Math.max(this.figure.y, this.figure.y + this.figure.h);
+
                                     switch (this.figure.name) {
                                         case 'text':
                                             p5.rect(minX, minY - (maxY-minY) + 5, maxX-minX, maxY - minY);
@@ -366,7 +370,6 @@
                                             break;
                                         default:
                                             p5.rect(minX-10, minY-10, maxX - minX + 20, maxY - minY + 20);
-
                                             break;
                                     }                          
                                 }
@@ -393,7 +396,7 @@
                     };
 
                     p5.mouseClicked = () => {
-                      if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
+                        if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
                             //SELECT FIGURE
                             if(this.figureType==='' && this.figureSelected===false) {
                                 this.figureSelectedIndex = this.figures.findIndex((figure) => {
@@ -426,7 +429,7 @@
 
                     p5.mousePressed = () => {
                         if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
-                           //DIBUJAR FIGURA
+                            //DIBUJAR FIGURA
                             if(this.figureType!=='') {
                                 if(this.figureType==='text') {
                                     this.addNewFig(this.figureType, p5.mouseX, p5.mouseY, 0, 0);
@@ -573,10 +576,12 @@
                                 }
                             }
                         }
-                    }           
+                    }
                 }, "canva");
+
             },
         }).mount("#app");
     </script>
 </body>
 </html>
+

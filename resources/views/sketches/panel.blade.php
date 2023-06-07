@@ -54,9 +54,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <img src="{{$sketch->img_preview}}" class="card-img-top img-fluid" />
-                                        <h5 class="card-title text-center mt-2">{{$sketch->name}}</h5>
+                                        <h5 class="card-title text-center mt-2 mb-3">{{$sketch->name}}</h5>
                                         <div class="text-center">
-                                            <a href="{{url('/sketch/'.$sketch->id)}}" class="btn btn-secondary w-100 mb-3">Abrir</a>
+                                            <a href="{{url('/sketch/'.$sketch->id)}}" class="btn btn-secondary w-100 mb-2">Abrir</a>
                                             <form id="destroySketch{{$sketch->id}}" action="{{route('sketch.delete', $sketch->id)}}" method="POST">
                                                 @csrf
                                                 @method('delete')
