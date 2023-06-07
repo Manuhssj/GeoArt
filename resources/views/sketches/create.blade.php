@@ -78,7 +78,7 @@
                 </div>
                 <!-- BTN SAVE -->
                 <div class="d-flex">
-                    <button type="button" @click="guardar()" class="btn btn-dark btn-lg me-2">Guardar</button>
+                    <button type="button" @click="save()" class="btn btn-dark btn-lg me-2">Guardar</button>
                 </div>
             </form>
         </div>
@@ -93,31 +93,59 @@
                     <hr class="my-3">
                     <div class="row properties">
                         <!-- INPUT X -->
-                        <div class="col-6 mb-2">
+                        <div v-if="figure.name!=='line'" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-x me-2"></i>
                                 <input type="number" name="x" id="x" min="0" v-model="figure.x" :readonly="figure.selected ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT Y -->
-                        <div class="col-6 mb-2">
+                        <div v-if="figure.name!=='line'" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-y me-2"></i>
                                 <input type="number" name="x" id="y" min="0" v-model="figure.y" />
                             </div>
                         </div>
                         <!-- INPUT W -->
-                        <div class="col-6 mb-2">
+                        <div v-if="(figure.name!=='text'&&figure.name!=='line')" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-w me-2"></i>
-                                <input type="number" name="x" id="w" min="0" v-model="figure.w" />
+                                <input type="number" name="w" id="w" min="0" v-model="figure.w" />
+                            </div>
+                        </div>
+                        <!-- INPUT X1 -->
+                        <div v-if="(figure.name==='line')" class="col-6 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i class="fa-sharp fa-solid fa-x me-2">1</i>
+                                <input type="number" name="x1" id="x1" min="0" v-model="figure.x1" />
+                            </div>
+                        </div>
+                        <!-- INPUT Y1 -->
+                        <div v-if="(figure.name==='line')" class="col-6 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i class="fa-sharp fa-solid fa-y me-2">1</i>
+                                <input type="number" name="y1" id="y1" min="0" v-model="figure.y1" />
+                            </div>
+                        </div>
+                        <!-- INPUT X2 -->
+                        <div v-if="(figure.name==='line')" class="col-6 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i class="fa-sharp fa-solid fa-x me-2">2</i>
+                                <input type="number" name="x2" id="x2" min="0" v-model="figure.x2" />
+                            </div>
+                        </div>
+                        <!-- INPUT Y2 -->
+                        <div v-if="(figure.name==='line')" class="col-6 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i class="fa-sharp fa-solid fa-y me-2">2</i>
+                                <input type="number" name="y2" id="y2" min="0" v-model="figure.y2" />
                             </div>
                         </div>
                         <!-- INPUT H -->
-                        <div class="col-6 mb-2">
+                        <div v-if="(figure.name!=='text'&&figure.name!=='line')" class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-sharp fa-solid fa-h me-2"></i>
-                                <input type="number" name="x" id="h" min="0" v-model="figure.h" />
+                                <input type="number" name="h" id="h" min="0" v-model="figure.h" />
                             </div>
                         </div>
                         <!-- INPUT FILL -->
@@ -131,21 +159,28 @@
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-regular fa-circle"></i>
-                                <input type="number" name="corner" id="corner" min="0" v-model="figure.corner" />
+                                <input type="number" name="corner" id="corner" min="0" v-model="figure.corner" :disabled="figure.name==='rect' ? false : true" />
                             </div>
                         </div>
                         <!-- INPUT OPACITY FILL -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette me-2" style="color: #acadaf"></i>
-                                <input type="number" name="fill_opacity" id="fill_opacity" min="0" max="100" v-model="figure.fill_opacity" />
+                                <input type="number" name="fill_opacity" id="fill_opacity" min="0" max="255" v-model="figure.fill_opacity" />
                             </div>
                         </div>
                         <!-- INPUT TEXT SIZE -->
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-text-height"></i>
-                                <input type="number" name="text_size" id="text_size" min="0" v-model="figure.font_size" />
+                                <input type="number" name="text_size" id="text_size" min="0" v-model="figure.font_size" :disabled="figure.name==='text' ? false : true" />
+                            </div>
+                        </div>
+                        <!-- INPUT TEXT -->
+                        <div v-if="figure.name==='text'" class="col-12 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <i class="fa-solid fa-pencil me-2"></i>
+                                <input type="text" name="text" id="text" min="0" v-model="figure.text" :disabled="figure.name==='text' ? false : true" />
                             </div>
                         </div>
                     </div>
@@ -172,7 +207,7 @@
                         <div class="col-6 mb-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <i class="fa-solid fa-palette me-2" style="color: #acadaf"></i>
-                                <input type="number" name="stroke_opacity" id="stroke_opacity" min="0" max="100" v-model="figure.stroke_opacitys" />
+                                <input type="number" name="stroke_opacity" id="stroke_opacity" min="0" max="255" v-model="figure.stroke_opacity" />
                             </div>
                         </div>
                     </div>
@@ -187,9 +222,9 @@
                     </div>
                     <div class="layers px-2">
                         <!-- CAPA -->
-                        <div v-for="(figure, index) in figures" class="layer text-dark d-flex justify-content-between">
+                        <div v-for="(figure, index) in figures" :class="figure.selected ? 'navbar text-white' : ''" @click="select(index)" class="layer text-dark d-flex justify-content-between rounded-1">
                             <h5 class="m-0">@{{figure.name}}</h5>
-                            <div class="d-flex">
+                            <div class="d-flex nowrap">
                                 <button type="button" @click="backLayer(index)" :key="'backLayer'+index">
                                     <i class="fa-sharp fa-solid fa-arrow-up"></i>
                                 </button>
@@ -204,7 +239,6 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -223,7 +257,7 @@
             data() {
                 return {
                     figures: [],
-                    figure: new Figura('rect', 0, 0, 0, 0),
+                    figure: new Figura('ellipse', 0, 0, 0, 0),
                     figureSelected: false,
                     figureSelectedIndex: -1,
                     figureType: '',
@@ -235,6 +269,7 @@
             },
             methods: {
                 setFig(figura) {
+                    this.reset();
                     this.figureType = figura;
                 },
                 addNewFig(name, x, y, w, h) {
@@ -263,7 +298,27 @@
                 preventFormSubmit(event) {
                     event.preventDefault();
                 },
-                guardar() {
+                select(index) {
+                    this.reset();
+                    this.figureType = '';
+                    this.figures.forEach(element => {
+                        element.selected = false;
+                    });
+                    this.figureSelectedIndex = index;
+                    this.figureSelected = true;
+                    this.figures[index].selected = true;
+                    this.figure = this.figures[index];
+                    
+                },
+                reset() {
+                    this.figure = new Figura('ellipse', 0, 0, 0, 0);
+                    this.figureSelected = false;
+                    if(this.figureSelectedIndex>-1) {
+                        this.figures[this.figureSelectedIndex].selected = false;
+                        this.figureSelectedIndex = -1;
+                    }
+                },
+                save() {
                     document.getElementById("figuras").value = JSON.stringify(this.figures);
                     var sketch = document.getElementById("defaultCanvas0");
                     var image = sketch.toDataURL('image/png');
@@ -290,7 +345,7 @@
                             this.figures[i].drawFigura(p5);
                             if(!this.figures[i].hidden) {
                                 //HITBOX (FIGURE SELECTED FRAME)
-                                if (this.figureSelected !== false && this.figures[i].selected===true) {
+                                if (this.figureSelected === true && this.figures[i].selected===true) 
                                     p5.noFill();
                                     p5.stroke(255, 0, 0);
                                     p5.strokeWeight(2);
@@ -342,21 +397,23 @@
                             //SELECT FIGURE
                             if(this.figureType==='' && this.figureSelected===false) {
                                 this.figureSelectedIndex = this.figures.findIndex((figure) => {
-                                    let minX = Math.min(figure.x, figure.x + figure.w);
-                                    let maxX = Math.max(figure.x, figure.x + figure.w);
-                                    let minY = Math.min(figure.y, figure.y + figure.h);
-                                    let maxY = Math.max(figure.y, figure.y + figure.h);
-                                    if(figure.name === 'line') {
-                                        let rectX = Math.min(figure.x1, figure.x2);
-                                        let rectY = Math.min(figure.y1, figure.y2);
-                                        let rectWidth = Math.abs(figure.x2 - figure.x1);
-                                        let rectHeight = Math.abs(figure.y2 - figure.y1); 
-                                        return p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight;
+                                    if(!figure.hidden){
+                                        let minX = Math.min(figure.x, figure.x + figure.w);
+                                        let maxX = Math.max(figure.x, figure.x + figure.w);
+                                        let minY = Math.min(figure.y, figure.y + figure.h);
+                                        let maxY = Math.max(figure.y, figure.y + figure.h);
+                                        if(figure.name === 'line') {
+                                            let rectX = Math.min(figure.x1, figure.x2);
+                                            let rectY = Math.min(figure.y1, figure.y2);
+                                            let rectWidth = Math.abs(figure.x2 - figure.x1);
+                                            let rectHeight = Math.abs(figure.y2 - figure.y1); 
+                                            return p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight;
+                                        }
+                                        if(figure.name === 'text') {
+                                            return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) + 5 && p5.mouseY <= maxY - (maxY-minY) + 5;
+                                        }
+                                        return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY;
                                     }
-                                    if(figure.name === 'text') {
-                                        return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) + 5 && p5.mouseY <= maxY - (maxY-minY) + 5;
-                                    }
-                                    return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY;
                                 });
                                 if(this.figureSelectedIndex>-1){
                                     this.figures[this.figureSelectedIndex].selected = true;
@@ -494,6 +551,7 @@
                                             this.figures[this.figureSelectedIndex].selected = false;
                                             this.figureSelected = false;
                                             this.figureSelectedIndex = -1;
+                                            this.figure = new Figura('ellipse', 0 , 0, 0, 0);
                                         }
                                     } else {
                                         let minX = Math.min(this.figures[this.figureSelectedIndex].x, this.figures[this.figureSelectedIndex].x + this.figures[this.figureSelectedIndex].w);
@@ -504,10 +562,12 @@
                                             this.figures[this.figureSelectedIndex].selected = false;
                                             this.figureSelected = false;
                                             this.figureSelectedIndex = -1;
+                                            this.figure = new Figura('ellipse', 0 , 0, 0, 0);
                                         } else if(!(p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY)) {
                                             this.figures[this.figureSelectedIndex].selected = false;
                                             this.figureSelected = false;
                                             this.figureSelectedIndex = -1;
+                                            this.figure = new Figura('ellipse', 0 , 0, 0, 0);
                                         }
                                     }
                                 }
