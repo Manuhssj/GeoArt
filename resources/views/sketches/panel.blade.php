@@ -48,24 +48,36 @@
         <section>
             <div class="container">
                 <div class="row">
-
-                    <div v-if="sketches.length>0"  v-for="sketch in sketches" class="col-md-3 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <img :src="sketch.img_preview" class="card-img-top img-fluid" />
-                                <h5 class="card-title text-center mt-2">@{{sketch.name}}</h5>
-                                <div class="text-center">
-                                    <a :href="'/sketch/'+sketch.id" class="btn btn-secondary w-100">Abrir</a>
+                    @if (count($sketches)>0)
+                        @foreach ($sketches as $sketch)
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img src="{{$sketch->img_preview}}" class="card-img-top img-fluid" />
+                                        <h5 class="card-title text-center mt-2">{{$sketch->name}}</h5>
+                                        <div class="text-center">
+                                            <a href="{{url('/sketch/'.$sketch->id)}}" class="btn btn-secondary w-100 mb-3">Abrir</a>
+                                            <form id="destroySketch{{$sketch->id}}" action="{{route('sketch.delete', $sketch->id)}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="text" name="id{{$sketch->id}}" value="{{$sketch->id}}" hidden>
+                                            </form>
+                                            <button type="button" @click="destroy({{$sketch->id}})"  class="btn btn-danger w-100">
+                                                ELIMINAR
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div v-else class="d-flex justify-content-center">
-                        <h2>No hay ningún sketch para mostrar.</h2>
-                    </div>
+                        @endforeach
+                    @else
+                        <div class="d-flex justify-content-center">
+                            <h2>No hay ningún sketch para mostrar.</h2>
+                        </div> 
+                    @endif
                 </div>
             </div>
-        </section>{{$sketches}}
+        </section>
     </div>
 
     @include('layouts.scripts')
@@ -78,6 +90,22 @@
                 }
             },
             methods: {
+                destroy(id){
+                    Swal.fire({
+                        title: '¿Estas seguro?',
+                        text: "Confirme esta acción para eliminar",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '##27b22a',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, ¡Eliminar!',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById("destroySketch" + id).submit();
+                        }
+                    })
+                }
             },
             mounted() {
             },
