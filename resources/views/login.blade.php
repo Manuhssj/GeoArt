@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,7 +19,7 @@
                 </nav>
 
                 <main class="container d-flex justify-content-center align-items-center h-100">
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div class="card cardColor form-card">
                             <div class="mt-4 text-center">
                                 <h2 class="">Iniciar sesión</h2>

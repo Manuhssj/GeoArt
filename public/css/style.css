@@ -100,8 +100,12 @@ body {
   color: #ffff;
 }
 
-.sidebar .layer h5:hover {
+.sidebar .layer:hover h5 {
   color: white;
+}
+
+.layers h2 {
+  font-size: 16px;
 }
 
 .sidebar .layer div.d-flex.nowrap {
@@ -146,5 +150,5 @@ body {
 
 #text {
     width: 100%;
-    max-width: 100%;
+    max-width: 193px;
 }
