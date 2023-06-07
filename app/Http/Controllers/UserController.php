@@ -43,20 +43,7 @@ class UserController extends Controller
             'password.required' => 'Contraseña requerida.',
             'password.min' => 'Minimo 8 caracteres.',
         ]);
-
-
-        /* echo "(".$request.") |";
-        echo $request->username."  |  ";
-        echo $request->email."  |  ";
-        echo $request->password."  |  ";
-        echo $request->password_confirmation."  |  "; */
-
         $user = User::create(['username' => $request->username, 'email' => $request->email, 'password' => bcrypt($request->password),]);
-        /* echo $request;
-        echo " ---------------- ";
-        echo $user;
-        echo " ---------------- ";
-        echo $user->password; */
         if($user){
             return redirect()->back()->with('success', 'Usuario registrado.');
         }

@@ -32,8 +32,6 @@ class SketchController extends Controller
     {
         $sketch = Sketch::create($request->all());
         $sketch->save();
-        /* $id = $sketch->id; */
-        /* return redirect()->route('design.edit', ['id' => $id]); */
         return redirect()->route('sketch.edit', ['id' => $sketch->id]);
     }
 

@@ -67,16 +67,6 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <!-- INPUT PASSWORD CONFIRM -->
-                                    {{-- <div class="mb-3 text-start ms-5 me-5">
-                                        <label for="password_confirmation" class="form-label ">Confirmar contraseña</label>
-                                        <input type="password" name="password_confirmation" class="form-control" placeholder="Ingresa tu contraseña" required>
-                                        @error('password_confirmation')
-                                            <div>
-                                                {{$message}}
-                                            </div>
-                                        @enderror
-                                    </div> --}}
                                     <!-- SUBMIT -->
                                     <div class="d-grid gap-2 me-5 ms-5">
                                         <button type="submit" class="btn btn-dark mb-1">Registrarse</button>
