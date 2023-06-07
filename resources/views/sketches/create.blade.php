@@ -272,6 +272,9 @@
                 },
             },
             mounted() {
+                var offsetX = 0, offsetX2 = 0;
+                var offsetY = 0, offsetY2 = 0;
+
                 new p5((p5) => {
 
                     p5.setup = () => {
@@ -315,7 +318,6 @@
                                 this.figures[i].drawFigura(p5);
                             }
                         }
-
                         //DRAW FIGURES WITH MOUSE
                         if(this.figureType!==''&&this.inicioX!==null&&this.inicioY!==null) {
                             p5.stroke(0);
@@ -390,17 +392,99 @@
                                     }
                                 }
                             }
+                            //FIGURE PRESSED TO DRAG
+                            if(this.figureType==='' && this.figureSelected===true) {
+                                if(this.figureSelectedIndex!==-1) {
+                                    const figure = this.figures[this.figureSelectedIndex];
+                                    const mouseX = p5.mouseX;
+                                    const mouseY = p5.mouseY;
+                                    if (figure.name !== 'text' && figure.name !== 'line') {
+                                        const wPositive = figure.w >= 0;
+                                        const hPositive = figure.h >= 0;
+                                        if ((wPositive && mouseX >= figure.x && mouseX <= figure.x + figure.w) || (!wPositive && mouseX <= figure.x && mouseX >= figure.x + figure.w)) {
+                                            if ((hPositive && mouseY >= figure.y && mouseY <= figure.y + figure.h) || (!hPositive && mouseY <= figure.y && mouseY >= figure.y + figure.h)) {
+                                                if (!figure.hidden) {
+                                                    offsetX = mouseX - figure.x;
+                                                    offsetY = mouseY - figure.y;
+                                                }
+                                            }
+                                        }
+                                    } else if (figure.name === 'text') {
+                                        let minX = Math.min(figure.x, figure.x + figure.w);
+                                        let maxX = Math.max(figure.x, figure.x + figure.w);
+                                        let minY = Math.min(figure.y, figure.y + figure.h);
+                                        let maxY = Math.max(figure.y, figure.y + figure.h);
+
+                                        if (p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) + 5 && p5.mouseY <= maxY - (maxY-minY) + 5) {
+                                            offsetX = mouseX - figure.x;
+                                            offsetY = mouseY - figure.y;
+                                        }
+                                    } else if(figure.name === 'line') {
+                                        let rectX = Math.min(figure.x1, figure.x2);
+                                        let rectY = Math.min(figure.y1, figure.y2);
+                                        let rectWidth = Math.abs(figure.x2 - figure.x1);
+                                        let rectHeight = Math.abs(figure.y2 - figure.y1); 
+                                        if(mouseX >= rectX && mouseX <= rectX + rectWidth && mouseY >= rectY && mouseY <= rectY + rectHeight) {
+                                            offsetX = mouseX - this.figures[this.figureSelectedIndex].x1;
+                                            offsetY = mouseY - this.figures[this.figureSelectedIndex].y1;
+                                            offsetX2 = mouseX - this.figures[this.figureSelectedIndex].x2;
+                                            offsetY2 = mouseY - this.figures[this.figureSelectedIndex].y2;
+                                        }
+                                    }  
+                                }
+                            }
+                        }
+                    } 
+                    
+                    p5.mouseDragged = () => {
+                        if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
+                            if(this.figureType==='' && this.figureSelected===true) {
+                                if(this.figureSelectedIndex!==-1) {
+                                    const figure = this.figures[this.figureSelectedIndex];
+                                    const mouseX = p5.mouseX;
+                                    const mouseY = p5.mouseY;
+                                    if (figure.name !== 'text' && figure.name !== 'line') {
+                                        const wPositive = figure.w >= 0;
+                                        const hPositive = figure.h >= 0;
+                                        if ((wPositive && mouseX >= figure.x && mouseX <= figure.x + figure.w) || (!wPositive && mouseX <= figure.x && mouseX >= figure.x + figure.w)) {
+                                            if ((hPositive && mouseY >= figure.y && mouseY <= figure.y + figure.h) || (!hPositive && mouseY <= figure.y && mouseY >= figure.y + figure.h)) {
+                                                if (!figure.hidden) {
+                                                    this.figures[this.figureSelectedIndex].x = p5.mouseX - offsetX;
+                                                    this.figures[this.figureSelectedIndex].y = p5.mouseY - offsetY;
+                                                }
+                                            }
+                                        }
+                                    } else if (figure.name === 'text') {
+                                        let minX = Math.min(figure.x, figure.x + figure.w);
+                                        let maxX = Math.max(figure.x, figure.x + figure.w);
+                                        let minY = Math.min(figure.y, figure.y + figure.h);
+                                        let maxY = Math.max(figure.y, figure.y + figure.h);
+                                        if (p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) + 5 && p5.mouseY <= maxY - (maxY-minY) + 5) {
+                                            this.figures[this.figureSelectedIndex].x = p5.mouseX - offsetX;
+                                            this.figures[this.figureSelectedIndex].y = p5.mouseY - offsetY;
+                                        }
+                                    } else if(figure.name === 'line') {
+                                        let rectX = Math.min(figure.x1, figure.x2);
+                                        let rectY = Math.min(figure.y1, figure.y2);
+                                        let rectWidth = Math.abs(figure.x2 - figure.x1);
+                                        let rectHeight = Math.abs(figure.y2 - figure.y1); 
+                                        if(mouseX >= rectX && mouseX <= rectX + rectWidth && mouseY >= rectY && mouseY <= rectY + rectHeight) {
+                                            this.figures[this.figureSelectedIndex].x1 = mouseX - offsetX;
+                                            this.figures[this.figureSelectedIndex].y1 = mouseY - offsetY;
+                                            this.figures[this.figureSelectedIndex].x2 = mouseX - offsetX2;
+                                            this.figures[this.figureSelectedIndex].y2 = mouseY - offsetY2;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-
 
                     p5.mouseReleased = () => {
                         if(p5.mouseX > 0 && p5.mouseX < p5.width && p5.mouseY > 0 && p5.mouseY < p5.height) {
                             //DESELECT FIGURE
                             if(this.figureType==='' && this.figureSelected===true) {
                                 if(this.figureSelectedIndex!==-1) {
-                                    console.log("DIFERENTE DE -1")
-                                    
                                     if(this.figures[this.figureSelectedIndex].name==='line') {
                                         let rectX = Math.min(this.figures[this.figureSelectedIndex].x1, this.figures[this.figureSelectedIndex].x2);
                                         let rectY = Math.min(this.figures[this.figureSelectedIndex].y1, this.figures[this.figureSelectedIndex].y2);
@@ -409,7 +493,6 @@
                                         if(!(p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight)) {
                                             this.figures[this.figureSelectedIndex].selected = false;
                                             this.figureSelected = false;
-                                            //this.figure = new Figura('rect', 0, 0, 0, 0);
                                             this.figureSelectedIndex = -1;
                                         }
                                     } else {
@@ -420,66 +503,17 @@
                                         if(this.figures[this.figureSelectedIndex].name==='text'&&!(p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY - (maxY-minY) - 5 && p5.mouseY <= maxY - (maxY-minY) + 5)) {
                                             this.figures[this.figureSelectedIndex].selected = false;
                                             this.figureSelected = false;
-                                            //this.figure = new Figura('rect', 0, 0, 0, 0);
                                             this.figureSelectedIndex = -1;
                                         } else if(!(p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY)) {
                                             this.figures[this.figureSelectedIndex].selected = false;
                                             this.figureSelected = false;
-                                            //this.figure = new Figura('rect', 0, 0, 0, 0);
                                             this.figureSelectedIndex = -1;
                                         }
-
                                     }
-
                                 }
-
-
-                                /* this.figureSelectedIndex = this.figures.findIndex((figure) => {
-                                    let minX = Math.min(figure.x, figure.x + figure.w);
-                                    let maxX = Math.max(figure.x, figure.x + figure.w);
-                                    let minY = Math.min(figure.y, figure.y + figure.h);
-                                    let maxY = Math.max(figure.y, figure.y + figure.h);
-                                    
-                                    if(figure.name === 'line') {
-                                        let rectX = Math.min(figure.x1, figure.x2);
-                                        let rectY = Math.min(figure.y1, figure.y2);
-                                        let rectWidth = Math.abs(figure.x2 - figure.x1);
-                                        let rectHeight = Math.abs(figure.y2 - figure.y1); 
-                                        return p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight;
-                                    }
-                                    return p5.mouseX >= minX && p5.mouseX <= maxX && p5.mouseY >= minY && p5.mouseY <= maxY;
-                                }); */
-                                //console.log(this.figureSelectedIndex);
-                                /* if(this.figureSelectedIndex>-1){
-                                    this.figures[this.figureSelectedIndex].selected = true;
-                                    this.figure = this.figures[this.figureSelectedIndex];
-                                    //console.log(this.figure);
-                                    this.figureSelected = true;
-                                } */
                             }
                         }
-                        
-
-
-                        /* if(this.figureSelected!==true&&this.figureSelectedIndex!==undefined&&this.figureSelectedIndex!==null&&this.figureSelectedIndex!==-1) {
-                            if(this.figures[this.figureSelectedIndex].name==='line') {
-                                let rectX = Math.min(this.figures[this.figureSelectedIndex].x1, this.figures[this.figureSelectedIndex].x2);
-                                let rectY = Math.min(this.figures[this.figureSelectedIndex].y1, this.figures[this.figureSelectedIndex].y2);
-                                let rectWidth = Math.abs(this.figures[this.figureSelectedIndex].x2 - this.figures[this.figureSelectedIndex].x1);
-                                let rectHeight = Math.abs(this.figures[this.figureSelectedIndex].y2 - this.figures[this.figureSelectedIndex].y1); 
-                                if(!(p5.mouseX >= rectX && p5.mouseX <= rectX + rectWidth && p5.mouseY >= rectY && p5.mouseY <= rectY + rectHeight)) {
-                                    this.figures[this.figureSelectedIndex].selected = false;
-                                    this.figure = new Figura('rect', 0, 0, 0, 0);
-                                    this.figureSelected = false;
-                                    this.figureSelectedIndex = -1;
-                                    this.figureType = '';
-                                }
-                            }
-                        } */
-                    }
-                    
-                    
-                    
+                    }           
                 }, "canva");
             },
         }).mount("#app");
